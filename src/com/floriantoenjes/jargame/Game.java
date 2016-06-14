@@ -119,17 +119,14 @@ public class Game {
     }
 
     private void printScores() {
-        int i = 1;
-
         if (scores.size() == 0) {
             return;
         }
 
         System.out.println("SCORES");
         System.out.println("------");
-        for (Score score : scores) {
-            System.out.printf("%d. %s%n", i, score);
-            i++;
+        for (int i = 1; i <= scores.size(); i++) {
+            System.out.printf("%d. %s%n", i, scores.get(i-1));
         }
         System.out.printf("%n%n");
     }
