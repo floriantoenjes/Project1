@@ -1,25 +1,25 @@
 package com.floriantoenjes.jargame;
 
 public class Jar {
-    private String itemType;
-    private int itemAmount;
-    private int itemAmountTotal;
+    private String content;
+    private int amount;
+    private int maxAmount;
 
-    public String getItemType() {
-        return itemType;
+    public String getContent() {
+        return content;
     }
 
-    public int getItemAmount() {
-        return itemAmount;
+    public int getAmount() {
+        return amount;
     }
 
-    public int getItemAmountTotal() {
-        return itemAmountTotal;
+    public int getMaxAmount() {
+        return maxAmount;
     }
 
     public Jar(String itemType, int itemAmount, int itemAmountTotal) {
-        this.itemType = itemType;
-        this.itemAmount = itemAmount;
-        this.itemAmountTotal = itemAmountTotal;
+        this.content = itemType;
+        this.amount = itemAmount;
+        this.maxAmount = itemAmountTotal;
     }
 }

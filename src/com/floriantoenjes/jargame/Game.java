@@ -48,24 +48,24 @@ public class Game {
 
 
     private void fillJar() {
-        String itemType;
-        int itemAmount;
-        int itemAmountTotal;
+        String content;
+        int amount;
+        int maxAmount;
 
         System.out.println("ADMINISTRATOR");
         System.out.println("-------------");
 
-        itemType = prompter.prompt("What is in the jar: ");
-        itemAmountTotal = prompter.promptInt("Total amount of %s that fit into the jar: ", itemType);
-        itemAmount = random.nextInt(itemAmountTotal) + 1;
+        content = prompter.prompt("What is in the jar: ");
+        maxAmount = prompter.promptInt("Total amount of %s that fit into the jar: ", content);
+        amount = random.nextInt(maxAmount) + 1;
 
-        jar = new Jar(itemType, itemAmount, itemAmountTotal);
+        jar = new Jar(content, amount, maxAmount);
     }
 
     private void startGuessing() {
-        String itemType = jar.getItemType();
-        int itemAmount = jar.getItemAmount();
-        int itemAmountTotal = jar.getItemAmountTotal();
+        String content = jar.getContent();
+        int amount = jar.getAmount();
+        int maxAmount = jar.getMaxAmount();
 
         int guess = 0;
         int guessCount = 0;
@@ -75,26 +75,26 @@ public class Game {
 
         System.out.println("PLAYER");
         System.out.println("------");
-        System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", itemType, itemAmountTotal);
+        System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
 
-        while (guess != itemAmount) {
+        while (guess != amount) {
             guess = prompter.promptInt("Guess: ");
 
-            if (guess < 1 || guess > itemAmountTotal){
-                System.out.printf("You can only guess in a range from 1 to %d.%n", itemAmountTotal);
+            if (guess < 1 || guess > maxAmount){
+                System.out.printf("You can only guess in a range from 1 to %d.%n", maxAmount);
                 continue;
-            } else if (guess < itemAmount) {
+            } else if (guess < amount) {
                 System.out.println("Your guess was too low.");
-            } else if (guess > itemAmount){
+            } else if (guess > amount){
                 System.out.println("Your guess was too high.");
             }
 
             guessCount++;
         }
 
-        points = itemAmountTotal / guessCount;
+        points = maxAmount / guessCount;
 
-        System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", itemAmount, itemType, guessCount);
+        System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", amount, content, guessCount);
 
         playerName = prompter.prompt("You have %d points. Please enter your name: ", points);
         System.out.println();
