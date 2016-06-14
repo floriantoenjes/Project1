@@ -1,3 +1,5 @@
+package com.floriantoenjes.jargame;
+
 import java.io.Serializable;
 
 public class Score implements Serializable{

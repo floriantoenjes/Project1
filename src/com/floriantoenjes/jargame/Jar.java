@@ -1,3 +1,5 @@
+package com.floriantoenjes.jargame;
+
 public class Jar {
     private String itemType;
     private int itemAmount;
