@@ -43,11 +43,16 @@ public class Game {
         int amount;
         int maxAmount;
 
-        System.out.println("ADMINISTRATOR");
-        System.out.println("-------------");
+        printHeading("ADMINISTRATOR");
 
         content = prompter.prompt("What is in the jar: ");
-        maxAmount = prompter.promptInt("Total amount of %s that fit into the jar: ", content);
+        while (true) {
+            maxAmount = prompter.promptInt("Total amount of %s that fit into the jar: ", content);
+            if (maxAmount > 0) {
+                break;
+            }
+            System.out.println("Enter a number greater than 0!");
+        }
         amount = random.nextInt(maxAmount) + 1;
 
         jar = new Jar(content, amount, maxAmount);
@@ -66,8 +71,7 @@ public class Game {
         int points;
         String playerName;
 
-        System.out.println("PLAYER");
-        System.out.println("------");
+        printHeading("PLAYER");
         System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
 
         while (guess != amount) {
@@ -99,9 +103,17 @@ public class Game {
         Collections.sort(scores);
     }
 
+    private void printHeading(String str) {
+        System.out.println(str);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            sb.append("-");
+        }
+        System.out.println(sb.toString());
+    }
+
     private void printScores() {
-        System.out.println("SCORES");
-        System.out.println("------");
+        printHeading("SCORES");
         for (int i = 1; i <= scores.size(); i++) {
             System.out.printf("%d. %s%n", i, scores.get(i-1));
         }
