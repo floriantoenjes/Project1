@@ -26,7 +26,7 @@ public class Prompter {
     public int promptInt(String prompt, Object... args) {
         while (true) {
             try {
-                return Integer.parseInt(prompt(prompt, args));
+                return Integer.parseInt(prompt(prompt, args).trim());
             } catch (NumberFormatException nfe) {
                 System.out.println("Enter a number!");
             }

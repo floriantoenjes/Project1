@@ -1,8 +1,6 @@
 package com.floriantoenjes.jargame;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Game {
     private Jar jar;
@@ -94,18 +92,7 @@ public class Game {
 
     private void addScore(Score score) {
         scores.add(score);
-        scores.sort((score1, score2) -> {
-            int points1 = score1.getPoints();
-            int points2 = score2.getPoints();
-
-            if (points1 < points2) {
-                return 1;
-            } else if (points1 > points2) {
-                return -1;
-            } else {
-                return 0;
-            }
-        });
+        Collections.sort(scores);
     }
 
     private void printScores() {

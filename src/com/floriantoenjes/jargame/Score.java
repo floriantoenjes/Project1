@@ -2,7 +2,7 @@ package com.floriantoenjes.jargame;
 
 import java.io.Serializable;
 
-public class Score {
+public class Score implements Comparable<Score>{
     private String name;
     private int points;
 
@@ -22,5 +22,19 @@ public class Score {
     @Override
     public String toString() {
         return String.format("%s - %d points", getName(), getPoints());
+    }
+
+    @Override
+    public int compareTo(Score other) {
+        int points = this.getPoints();
+        int pointsOther = other.getPoints();
+
+        if (points < pointsOther) {
+            return 1;
+        } else if (points > pointsOther) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
