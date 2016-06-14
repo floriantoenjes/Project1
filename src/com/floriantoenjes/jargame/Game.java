@@ -54,7 +54,6 @@ public class Game {
             System.out.println("Enter a number greater than 0!");
         }
         amount = random.nextInt(maxAmount) + 1;
-
         jar = new Jar(content, amount, maxAmount);
 
         System.out.println();
