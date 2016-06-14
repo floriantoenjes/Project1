@@ -21,29 +21,18 @@ public class Game {
     }
 
     private void play() {
-        String scoreFilePath = "./scores.ser";
-        String input;
+        boolean playAgain = true;
+        while (playAgain) {
+            if (scores.size() > 0) {
+                printScores();
+            }
 
-        while (true) {
-            printScores();
             fillJar();
             startGuessing();
 
-            while (true) {
-                input = prompter.prompt("Do you want to set up a new game? Y(es) to continue | N(o) to exit: ")
-                        .trim()
-                        .toLowerCase();
-
-                if (input.length() > 0) {
-                    if (input.charAt(0) == 'y') {
-                        break;
-                    } else if (input.charAt(0) == 'n') {
-                        System.out.println("Goodbye!");
-                        return;
-                    }
-                }
-            }
+            playAgain = prompter.promptYesNo("Do you want to setup a new game? Y(es) to continue | N(o) to exit: ");
         }
+        System.out.println("Goodbye!");
     }
 
 
@@ -60,6 +49,8 @@ public class Game {
         amount = random.nextInt(maxAmount) + 1;
 
         jar = new Jar(content, amount, maxAmount);
+
+        System.out.println();
     }
 
     private void startGuessing() {
@@ -95,11 +86,10 @@ public class Game {
         points = maxAmount / guessCount;
 
         System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", amount, content, guessCount);
-
         playerName = prompter.prompt("You have %d points. Please enter your name: ", points);
-        System.out.println();
-
         addScore(new Score(playerName, points));
+
+        System.out.println();
     }
 
     private void addScore(Score score) {
@@ -119,10 +109,6 @@ public class Game {
     }
 
     private void printScores() {
-        if (scores.size() == 0) {
-            return;
-        }
-
         System.out.println("SCORES");
         System.out.println("------");
         for (int i = 1; i <= scores.size(); i++) {

@@ -32,4 +32,22 @@ public class Prompter {
             }
         }
     }
+
+    public boolean promptYesNo (String prompt, Object... args) {
+        String input;
+
+        while (true) {
+            input = prompt(prompt)
+                    .trim()
+                    .toLowerCase();
+
+            if (input.length() > 0) {
+                if (input.charAt(0) == 'y') {
+                    return true;
+                } else if (input.charAt(0) == 'n') {
+                    return false;
+                }
+            }
+        }
+    }
 }
