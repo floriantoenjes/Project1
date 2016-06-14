@@ -1,4 +1,4 @@
-package com.floriantoenjes.jargame;
+package com.floriantoenjes.jargame.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,6 +1,4 @@
-package com.floriantoenjes.jargame;
-
-import java.io.Serializable;
+package com.floriantoenjes.jargame.model;
 
 public class Score implements Comparable<Score>{
     private String name;
@@ -20,11 +18,6 @@ public class Score implements Comparable<Score>{
     }
 
     @Override
-    public String toString() {
-        return String.format("%s - %d points", getName(), getPoints());
-    }
-
-    @Override
     public int compareTo(Score other) {
         int points = this.getPoints();
         int pointsOther = other.getPoints();
@@ -36,5 +29,10 @@ public class Score implements Comparable<Score>{
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %d points", getName(), getPoints());
     }
 }
