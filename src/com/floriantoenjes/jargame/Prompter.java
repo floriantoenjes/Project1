@@ -11,39 +11,25 @@ public class Prompter {
         this.reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public String promptForString(String prompt, Object... args) {
+    public String prompt(String prompt, Object... args) {
         String str = "";
 
-        while (true) {
-            System.out.printf(prompt, args);
-            try {
-                str = reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (str.trim().isEmpty()) {
-                System.out.println("Please enter something!");
-            } else {
-                break;
-            }
+        System.out.printf(prompt, args);
+        try {
+            str = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return str;
     }
 
-    public int promptForInt(String prompt, Object... args) {
-        int x;
-
+    public int promptInt(String prompt, Object... args) {
         while (true) {
             try {
-                x = Integer.parseInt(promptForString(prompt, args));
-                if (x == 0) {
-                    throw new IllegalArgumentException();
-                }
-                break;
-            } catch (IllegalArgumentException iae) {
-                System.out.println("Please enter a whole number greater than zero!");
+                return Integer.parseInt(prompt(prompt, args));
+            } catch (NumberFormatException nfe) {
+                System.out.println("Enter a number!");
             }
         }
-        return x;
     }
 }

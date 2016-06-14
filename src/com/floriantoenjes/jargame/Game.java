@@ -1,6 +1,5 @@
 package com.floriantoenjes.jargame;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,21 +24,26 @@ public class Game {
         String scoreFilePath = "./scores.ser";
         String input;
 
-        loadScores(scoreFilePath);
-
-        while(true) {
+        while (true) {
             printScores();
             fillJar();
             startGuessing();
 
-            input = prompter.promptForString("Do you want to set up a new game? Type Y(es) to continue: ");
-            if (input.trim().toLowerCase().equals("y")) {
-                continue;
-            }
-            break;
-        }
+            while (true) {
+                input = prompter.prompt("Do you want to set up a new game? Y(es) to continue | N(o) to exit: ")
+                        .trim()
+                        .toLowerCase();
 
-        saveScores(scoreFilePath);
+                if (input.length() > 0) {
+                    if (input.charAt(0) == 'y') {
+                        break;
+                    } else if (input.charAt(0) == 'n') {
+                        System.out.println("Goodbye!");
+                        return;
+                    }
+                }
+            }
+        }
     }
 
 
@@ -51,8 +55,8 @@ public class Game {
         System.out.println("ADMINISTRATOR");
         System.out.println("-------------");
 
-        itemType = prompter.promptForString("What is in the jar: ");
-        itemAmountTotal = prompter.promptForInt("Total amount of %s that fit into the jar: ", itemType);
+        itemType = prompter.prompt("What is in the jar: ");
+        itemAmountTotal = prompter.promptInt("Total amount of %s that fit into the jar: ", itemType);
         itemAmount = random.nextInt(itemAmountTotal) + 1;
 
         jar = new Jar(itemType, itemAmount, itemAmountTotal);
@@ -71,18 +75,18 @@ public class Game {
 
         System.out.println("PLAYER");
         System.out.println("------");
-        System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n", itemType, itemAmountTotal);
+        System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", itemType, itemAmountTotal);
 
         while (guess != itemAmount) {
-            guess = prompter.promptForInt("Guess: ");
+            guess = prompter.promptInt("Guess: ");
 
-            if (guess > itemAmountTotal){
-                System.out.println("You cannot guess higher than the maximum amount!");
+            if (guess < 1 || guess > itemAmountTotal){
+                System.out.printf("You can only guess in a range from 1 to %d.%n", itemAmountTotal);
                 continue;
             } else if (guess < itemAmount) {
-                System.out.println("Your guess was too low!");
+                System.out.println("Your guess was too low.");
             } else if (guess > itemAmount){
-                System.out.println("Your guess was too high!");
+                System.out.println("Your guess was too high.");
             }
 
             guessCount++;
@@ -92,7 +96,7 @@ public class Game {
 
         System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", itemAmount, itemType, guessCount);
 
-        playerName = prompter.promptForString("You have %d points. Please enter your name: ", points);
+        playerName = prompter.prompt("You have %d points. Please enter your name: ", points);
         System.out.println();
 
         addScore(new Score(playerName, points));
@@ -112,26 +116,6 @@ public class Game {
                 return 0;
             }
         });
-    }
-
-    private void saveScores(String scoreFilePath) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(scoreFilePath))) {
-            oos.writeObject(scores);
-            System.out.printf("Scores were saved to %s", scoreFilePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadScores(String scoreFilePath) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(scoreFilePath))) {
-            scores = (List<Score>) ois.readObject();
-        } catch (FileNotFoundException e) {
-            System.out.printf("No score file at path \"%s\" found.%n%n", scoreFilePath);
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void printScores() {

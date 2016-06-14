@@ -2,8 +2,7 @@ package com.floriantoenjes.jargame;
 
 import java.io.Serializable;
 
-public class Score implements Serializable{
-    private static final long serialVersionUID = 2219221442025174878L;
+public class Score {
     private String name;
     private int points;
 
