@@ -14,15 +14,12 @@ public class Score implements Serializable{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    @Override
+    public String toString() {
+        return String.format("%s - %d points", getName(), getPoints());
     }
 }

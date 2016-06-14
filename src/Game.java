@@ -13,16 +13,28 @@ public class Game {
     }
 
     public static void main(String[] args) {
+        new Game().compoundPlay();
+
+    }
+
+    private void compoundPlay() {
         String scoreFilePath = "./scores.ser";
-        Game game = new Game();
+        String input;
 
-        game.loadScores(scoreFilePath);
-        game.printScores();
+        loadScores(scoreFilePath);
 
-        game.fillJar();
-        game.play();
+        while(true) {
+            printScores();
+            fillJar();
+            play();
+            input = prompter.promptForString("Do you want to set up a new game? Type Y(es) to continue: ");
+            if (input.trim().toLowerCase().equals("y")) {
+                continue;
+            }
+            break;
+        }
 
-        game.saveScores(scoreFilePath);
+        saveScores(scoreFilePath);
     }
 
 
@@ -58,13 +70,17 @@ public class Game {
 
         while (guess != itemAmount) {
             guess = prompter.promptForInt("Guess: ");
-            guessCount++;
 
-            if (guess < itemAmount) {
+            if (guess > itemAmountTotal){
+                System.out.println("You cannot guess higher than the maximum amount!");
+                continue;
+            } else if (guess < itemAmount) {
                 System.out.println("Your guess was too low!");
             } else if (guess > itemAmount){
                 System.out.println("Your guess was too high!");
             }
+
+            guessCount++;
         }
 
         points = itemAmountTotal / guessCount;
@@ -123,7 +139,7 @@ public class Game {
         System.out.println("SCORES");
         System.out.println("------");
         for (Score score : scores) {
-            System.out.printf("%d. %s - %d points%n", i, score.getName(), score.getPoints());
+            System.out.printf("%d. %s%n", i, score);
             i++;
         }
         System.out.printf("%n%n");
