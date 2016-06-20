@@ -11,33 +11,72 @@ public class ConsoleJarGame extends JarGame{
         prompter = new Prompter();
     }
 
+    /**
+     * Starts the Console Jar Game by first letting an administrator setup the game and then prompting a player for guesses. The tries of the player are counted until the guess is correct.
+     * The player is then asked for his/her name and a score is added to the score list. Finally the score list is shown to the administrator and he/she is prompted if he/she wants to setup a new game.
+     */
     @Override
     public void play() {
+        printHeader("ADMINISTRATOR");
         while (true) {
-            if (scores.size() > 0) {
-                printScores();
+            setupGame();
+
+            String content = jar.getContent();
+            int amount = jar.getAmount();
+            int maxAmount = jar.getMaxAmount();
+
+            int guessCount = 0;
+            Guess guess = Guess.INVALID;
+
+            int points;
+            String playerName;
+
+            printHeader("PLAYER");
+            System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
+
+            while (guess != Guess.CORRECT) {
+                try {
+                    guess = makeGuess(prompter.promptInt("Guess: "));
+                } catch (EmptyJarException e) {
+                    e.printStackTrace();
+                }
+
+                switch (guess) {
+                    case INVALID:
+                        System.out.printf("You can only guess in a range from 1 to %d.%n", maxAmount);
+                        continue;
+                    case TOO_LOW:
+                        System.out.println("Your guess was too low.");
+                        break;
+                    case TOO_HIGH:
+                        System.out.println("Your guess was too high.");
+                        break;
+                }
+                guessCount++;
             }
 
-            setup();
-            try {
-                startGuessing();
-            } catch (EmptyJarException e) {
-                e.printStackTrace();
-            }
+            points = maxAmount / guessCount;
 
-            if (!prompter.promptYesNo("Do you want to setup a new game? Y(es) to continue: ")) {
+            System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", amount, content, guessCount);
+            playerName = prompter.prompt("You have %d points. Please enter your name: ", points);
+            scores.add(new Score(playerName, points));
+            System.out.println();
+
+            printHeader("ADMINISTRATOR");
+            printScores();
+            if (!prompter.promptForYes("Do you want to setup a new game? Y(es) to continue: ")) {
                 break;
             }
         }
         System.out.println("Goodbye!");
     }
 
-    @Override
-    protected void setup() {
+    /**
+     * Sets up the Jar Game by prompting for jar content and maximum fill-amount.
+     */
+    private void setupGame() {
         String content;
         int maxAmount;
-
-        printHeader("ADMINISTRATOR");
 
         content = prompter.prompt("What is in the jar: ");
         while (true) {
@@ -49,49 +88,6 @@ public class ConsoleJarGame extends JarGame{
         }
 
         fillJar(content, maxAmount);
-    }
-
-    @Override
-    protected void startGuessing() throws EmptyJarException {
-        if (jar == null) throw new EmptyJarException();
-
-        String content = jar.getContent();
-        int amount = jar.getAmount();
-        int maxAmount = jar.getMaxAmount();
-
-        int guessCount = 0;
-        Guess guess = null;
-
-        int points;
-        String playerName;
-
-        printHeader("PLAYER");
-        System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
-
-        while (guess != Guess.CORRECT) {
-            guess = makeGuess(prompter.promptInt("Guess: "));
-
-            switch (guess) {
-                case INVALID:
-                    System.out.printf("You can only guess in a range from 1 to %d.%n", maxAmount);
-                    continue;
-                case TOO_LOW:
-                    System.out.println("Your guess was too low.");
-                    break;
-                case TOO_HIGH:
-                    System.out.println("Your guess was too high.");
-                    break;
-            }
-            guessCount++;
-        }
-
-        points = maxAmount / guessCount;
-
-        System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", amount, content, guessCount);
-        playerName = prompter.prompt("You have %d points. Please enter your name: ", points);
-        scores.add(new Score(playerName, points));
-
-        System.out.println();
     }
 
     private void printHeader(String str) {

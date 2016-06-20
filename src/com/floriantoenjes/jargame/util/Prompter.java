@@ -32,8 +32,7 @@ public class Prompter {
     }
 
 
-
-    public boolean promptYesNo (String prompt, Object... args) {
+    public boolean promptForYes(String prompt, Object... args) {
         String input;
 
         input = prompt(prompt)

@@ -20,10 +20,6 @@ public abstract class JarGame {
 
     public abstract void play();
 
-    protected abstract void setup();
-
-    protected abstract void startGuessing() throws EmptyJarException;
-
     protected final void fillJar(String content, int maxAmount) {
         int amount = random.nextInt(maxAmount) + 1;
         jar = new Jar(content, amount, maxAmount);
