@@ -93,9 +93,10 @@ public class ConsoleJarGame extends JarGame{
     }
 
     private void printScores() {
+        int i = 1;
+
         printHeader("SCORES");
 
-        int i = 1;
         for (Score score : scores) {
             System.out.printf("%d. %s%n", i++, score);
         }
