@@ -12,8 +12,10 @@ public class ConsoleJarGame extends JarGame{
     }
 
     /**
-     * Starts the Console Jar Game by first letting an administrator setup the game and then prompting a player for guesses. The tries of the player are counted until the guess is correct.
-     * The player is then asked for his/her name and a score is added to the score list. Finally the administrator can see the score list and choose to setup a new game.
+     * Runs the Console Jar Game by first letting an administrator setup the game and then prompting a player for
+     * guesses. The tries of the player are counted until the guess is correct. The player is then asked for his/her
+     * name and a score is added to the score list. Finally the administrator can see the score list and choose to setup
+     * a new game.
      */
     @Override
     public void play() {
@@ -26,17 +28,17 @@ public class ConsoleJarGame extends JarGame{
             int maxAmount = jar.getMaxAmount();
 
             int guessCount = 0;
-            Guess guess = Guess.INVALID;
+            GuessState guess = GuessState.INVALID;
 
             int points;
             String playerName;
 
             printHeader("PLAYER");
-            System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
+            System.out.printf("GuessState how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
 
-            while (guess != Guess.CORRECT) {
+            while (guess != GuessState.CORRECT) {
                 try {
-                    guess = makeGuess(prompter.promptInt("Guess: "));
+                    guess = makeGuess(prompter.promptInt("GuessState: "));
                 } catch (EmptyJarException e) {
                     e.printStackTrace();
                 }
@@ -90,6 +92,10 @@ public class ConsoleJarGame extends JarGame{
         fillJar(content, maxAmount);
     }
 
+    /**
+     * Prints out a String with an underline as a header to the console.
+     * @param str Header
+     */
     private void printHeader(String str) {
         System.out.println(str);
         StringBuilder underline = new StringBuilder();
@@ -99,6 +105,9 @@ public class ConsoleJarGame extends JarGame{
         System.out.println(underline);
     }
 
+    /**
+     * Prints out the score list
+     */
     private void printScores() {
         printHeader("SCORES");
 
