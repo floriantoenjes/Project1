@@ -13,7 +13,7 @@ public class ConsoleJarGame extends JarGame{
 
     /**
      * Starts the Console Jar Game by first letting an administrator setup the game and then prompting a player for guesses. The tries of the player are counted until the guess is correct.
-     * The player is then asked for his/her name and a score is added to the score list. Finally the score list is shown to the administrator and he/she is prompted if he/she wants to setup a new game.
+     * The player is then asked for his/her name and a score is added to the score list. Finally the administrator can see the score list and choose to setup a new game.
      */
     @Override
     public void play() {
