@@ -4,18 +4,20 @@ import com.floriantoenjes.jargame.model.Jar;
 import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.jargame.util.Prompter;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Game {
     private Jar jar;
-    private List<Score> scores;
+    private Set<Score> scores;
     private Prompter prompter;
     private Random random;
 
     private Game() {
         prompter = new Prompter();
         random = new Random();
-        scores = new ArrayList<>();
+        scores = new TreeSet<>();
     }
 
     public static void main(String[] args) {
@@ -23,8 +25,7 @@ public class Game {
     }
 
     private void play() {
-        boolean playAgain = true;
-        while (playAgain) {
+        while (true) {
             if (scores.size() > 0) {
                 printScores();
             }
@@ -32,18 +33,19 @@ public class Game {
             fillJar();
             startGuessing();
 
-            playAgain = prompter.promptYesNo("Do you want to setup a new game? Y(es) to continue | N(o) to exit: ");
+            if (!prompter.promptYesNo("Do you want to setup a new game? Y(es) to continue: ")) {
+                break;
+            }
         }
         System.out.println("Goodbye!");
     }
-
 
     private void fillJar() {
         String content;
         int amount;
         int maxAmount;
 
-        printHeading("ADMINISTRATOR");
+        printHeader("ADMINISTRATOR");
 
         content = prompter.prompt("What is in the jar: ");
         while (true) {
@@ -70,7 +72,7 @@ public class Game {
         int points;
         String playerName;
 
-        printHeading("PLAYER");
+        printHeader("PLAYER");
         System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
 
         while (guess != amount) {
@@ -92,29 +94,28 @@ public class Game {
 
         System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", amount, content, guessCount);
         playerName = prompter.prompt("You have %d points. Please enter your name: ", points);
-        addScore(new Score(playerName, points));
+        scores.add(new Score(playerName, points));
 
         System.out.println();
     }
 
-    private void addScore(Score score) {
-        scores.add(score);
-        Collections.sort(scores);
-    }
 
-    private void printHeading(String str) {
+
+    private void printHeader(String str) {
         System.out.println(str);
-        StringBuilder sb = new StringBuilder();
+        String underline = "";
         for (int i = 0; i < str.length(); i++) {
-            sb.append("-");
+            underline += "-";
         }
-        System.out.println(sb.toString());
+        System.out.println(underline);
     }
 
     private void printScores() {
-        printHeading("SCORES");
-        for (int i = 1; i <= scores.size(); i++) {
-            System.out.printf("%d. %s%n", i, scores.get(i-1));
+        printHeader("SCORES");
+
+        int i = 1;
+        for (Score score : scores) {
+            System.out.printf("%d. %s%n", i++, score);
         }
         System.out.printf("%n%n");
     }
