@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class Prompter {
 
-    public String prompt(String prompt, Object... args) {
+    public static String prompt(String prompt, Object... args) {
         String str = "";
 
         System.out.printf(prompt, args);
@@ -18,7 +18,7 @@ public class Prompter {
         return str;
     }
 
-    public int promptInt(String prompt, Object... args) {
+    public static int promptInt(String prompt, Object... args) {
         try {
             return Integer.parseInt(prompt(prompt, args).trim());
         } catch (NumberFormatException nfe) {
@@ -27,7 +27,7 @@ public class Prompter {
     }
 
 
-    public boolean promptForYes(String prompt, Object... args) {
+    public static boolean promptForYes(String prompt, Object... args) {
         String input;
 
         input = prompt(prompt)

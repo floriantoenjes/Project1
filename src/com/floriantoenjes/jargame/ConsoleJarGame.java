@@ -5,7 +5,6 @@ import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.jargame.util.Prompter;
 
 public class ConsoleJarGame extends JarGame{
-    private Prompter prompter = new Prompter();
 
     @Override
     public void play() {
@@ -28,7 +27,7 @@ public class ConsoleJarGame extends JarGame{
 
             while (guess != GuessState.CORRECT) {
                 try {
-                    guess = makeGuess(prompter.promptInt("GuessState: "));
+                    guess = makeGuess(Prompter.promptInt("GuessState: "));
                 } catch (EmptyJarException e) {
                     e.printStackTrace();
                 }
@@ -50,13 +49,13 @@ public class ConsoleJarGame extends JarGame{
             points = maxAmount / guessCount;
 
             System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", amount, content, guessCount);
-            playerName = prompter.prompt("You have %d points. Please enter your name: ", points);
+            playerName = Prompter.prompt("You have %d points. Please enter your name: ", points);
             scores.add(new Score(playerName, points));
             System.out.println();
 
             printHeader("ADMINISTRATOR");
             printScores();
-            if (!prompter.promptForYes("Do you want to setup a new game? Y(es) to continue: ")) {
+            if (!Prompter.promptForYes("Do you want to setup a new game? Y(es) to continue: ")) {
                 break;
             }
         }
@@ -67,9 +66,9 @@ public class ConsoleJarGame extends JarGame{
         String content;
         int maxAmount;
 
-        content = prompter.prompt("What is in the jar: ");
+        content = Prompter.prompt("What is in the jar: ");
         while (true) {
-            maxAmount = prompter.promptInt("Total amount of %s that fit into the jar: ", content);
+            maxAmount = Prompter.promptInt("Total amount of %s that fit into the jar: ", content);
             if (maxAmount > 0) {
                 break;
             }
