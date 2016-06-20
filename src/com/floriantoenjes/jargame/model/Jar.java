@@ -5,10 +5,10 @@ public class Jar {
     private int amount;
     private int maxAmount;
 
-    public Jar(String itemType, int itemAmount, int itemAmountTotal) {
-        this.content = itemType;
-        this.amount = itemAmount;
-        this.maxAmount = itemAmountTotal;
+    public Jar(String content, int amount, int maxAmount) {
+        this.content = content;
+        this.amount = amount;
+        this.maxAmount = maxAmount;
     }
 
     public String getContent() {

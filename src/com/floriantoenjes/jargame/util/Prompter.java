@@ -24,30 +24,27 @@ public class Prompter {
     }
 
     public int promptInt(String prompt, Object... args) {
-        while (true) {
-            try {
-                return Integer.parseInt(prompt(prompt, args).trim());
-            } catch (NumberFormatException nfe) {
-                System.out.println("Enter a number!");
-            }
+        try {
+            return Integer.parseInt(prompt(prompt, args).trim());
+        } catch (NumberFormatException nfe) {
+            return 0;
         }
     }
+
+
 
     public boolean promptYesNo (String prompt, Object... args) {
         String input;
 
-        while (true) {
-            input = prompt(prompt)
-                    .trim()
-                    .toLowerCase();
+        input = prompt(prompt)
+                .trim()
+                .toLowerCase();
 
-            if (input.length() > 0) {
-                if (input.charAt(0) == 'y') {
-                    return true;
-                } else if (input.charAt(0) == 'n') {
-                    return false;
-                }
+        if (input.length() > 0) {
+            if (input.charAt(0) == 'y') {
+                return true;
             }
         }
+        return false;
     }
 }

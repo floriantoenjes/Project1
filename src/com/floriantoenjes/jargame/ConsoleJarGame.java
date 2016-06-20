@@ -1,36 +1,23 @@
 package com.floriantoenjes.jargame;
 
-import com.floriantoenjes.jargame.model.Jar;
 import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.jargame.util.Prompter;
 
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-
-public class Game {
-    private Jar jar;
-    private Set<Score> scores;
+public class ConsoleJarGame extends JarGame{
     private Prompter prompter;
-    private Random random;
 
-    private Game() {
+    public ConsoleJarGame() {
         prompter = new Prompter();
-        random = new Random();
-        scores = new TreeSet<>();
     }
 
-    public static void main(String[] args) {
-        new Game().play();
-    }
-
-    private void play() {
+    @Override
+    public void play() {
         while (true) {
             if (scores.size() > 0) {
                 printScores();
             }
 
-            fillJar();
+            setup();
             startGuessing();
 
             if (!prompter.promptYesNo("Do you want to setup a new game? Y(es) to continue: ")) {
@@ -40,9 +27,9 @@ public class Game {
         System.out.println("Goodbye!");
     }
 
-    private void fillJar() {
+    @Override
+    protected void setup() {
         String content;
-        int amount;
         int maxAmount;
 
         printHeader("ADMINISTRATOR");
@@ -55,19 +42,18 @@ public class Game {
             }
             System.out.println("Enter a number greater than 0!");
         }
-        amount = random.nextInt(maxAmount) + 1;
-        jar = new Jar(content, amount, maxAmount);
 
-        System.out.println();
+        fillJar(content, maxAmount);
     }
 
-    private void startGuessing() {
+    @Override
+    protected void startGuessing() {
         String content = jar.getContent();
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();
 
-        int guess = 0;
         int guessCount = 0;
+        Guess guess = null;
 
         int points;
         String playerName;
@@ -75,18 +61,20 @@ public class Game {
         printHeader("PLAYER");
         System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
 
-        while (guess != amount) {
-            guess = prompter.promptInt("Guess: ");
+        while (guess != Guess.CORRECT) {
+            guess = makeGuess(prompter.promptInt("Guess: "));
 
-            if (guess < 1 || guess > maxAmount){
-                System.out.printf("You can only guess in a range from 1 to %d.%n", maxAmount);
-                continue;
-            } else if (guess < amount) {
-                System.out.println("Your guess was too low.");
-            } else if (guess > amount){
-                System.out.println("Your guess was too high.");
+            switch (guess) {
+                case INVALID:
+                    System.out.printf("You can only guess in a range from 1 to %d.%n", maxAmount);
+                    continue;
+                case TOO_LOW:
+                    System.out.println("Your guess was too low.");
+                    break;
+                case TOO_HIGH:
+                    System.out.println("Your guess was too high.");
+                    break;
             }
-
             guessCount++;
         }
 
@@ -98,8 +86,6 @@ public class Game {
 
         System.out.println();
     }
-
-
 
     private void printHeader(String str) {
         System.out.println(str);
@@ -119,4 +105,5 @@ public class Game {
         }
         System.out.printf("%n%n");
     }
+
 }
