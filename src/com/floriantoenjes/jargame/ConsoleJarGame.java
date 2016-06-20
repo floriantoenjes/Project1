@@ -18,7 +18,11 @@ public class ConsoleJarGame extends JarGame{
             }
 
             setup();
-            startGuessing();
+            try {
+                startGuessing();
+            } catch (EmptyJarException e) {
+                e.printStackTrace();
+            }
 
             if (!prompter.promptYesNo("Do you want to setup a new game? Y(es) to continue: ")) {
                 break;
@@ -47,8 +51,8 @@ public class ConsoleJarGame extends JarGame{
     }
 
     @Override
-    protected void startGuessing() {
-        if (jar == null) throw new IllegalStateException("The jar must be filled to make a guess.");
+    protected void startGuessing() throws EmptyJarException {
+        if (jar == null) throw new EmptyJarException();
 
         String content = jar.getContent();
         int amount = jar.getAmount();
