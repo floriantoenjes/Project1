@@ -11,12 +11,6 @@ public class ConsoleJarGame extends JarGame{
         prompter = new Prompter();
     }
 
-    /**
-     * Runs the Console Jar Game by first letting an administrator setup the game and then prompting a player for
-     * guesses. The tries of the player are counted until the guess is correct. The player is then asked for his/her
-     * name and a score is added to the score list. Finally the administrator can see the score list and choose to setup
-     * a new game.
-     */
     @Override
     public void play() {
         printHeader("ADMINISTRATOR");
@@ -73,9 +67,6 @@ public class ConsoleJarGame extends JarGame{
         System.out.println("Goodbye!");
     }
 
-    /**
-     * Sets up the Jar Game by prompting for jar content and maximum fill-amount.
-     */
     private void setupGame() {
         String content;
         int maxAmount;
@@ -92,10 +83,6 @@ public class ConsoleJarGame extends JarGame{
         fillJar(content, maxAmount);
     }
 
-    /**
-     * Prints out a String with an underline as a header to the console.
-     * @param str Header
-     */
     private void printHeader(String str) {
         System.out.println(str);
         StringBuilder underline = new StringBuilder();
@@ -105,9 +92,6 @@ public class ConsoleJarGame extends JarGame{
         System.out.println(underline);
     }
 
-    /**
-     * Prints out the score list
-     */
     private void printScores() {
         printHeader("SCORES");
 
