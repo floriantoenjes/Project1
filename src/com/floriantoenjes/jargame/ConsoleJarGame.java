@@ -8,6 +8,7 @@ public class ConsoleJarGame extends JarGame{
 
     @Override
     public void play() {
+        System.out.println();
         printHeader("ADMINISTRATOR");
         while (true) {
             int amount;
