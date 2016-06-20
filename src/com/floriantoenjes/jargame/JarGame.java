@@ -40,7 +40,7 @@ public abstract class JarGame {
     }
 
     protected enum GuessState {
-        INVALID, CORRECT, TOO_LOW, TOO_HIGH
+        INVALID, NOT_MADE, CORRECT, TOO_LOW, TOO_HIGH
     }
 
 }

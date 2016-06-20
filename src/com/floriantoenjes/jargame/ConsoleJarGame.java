@@ -10,24 +10,26 @@ public class ConsoleJarGame extends JarGame{
     public void play() {
         printHeader("ADMINISTRATOR");
         while (true) {
+            int amount;
+            int maxAmount;
+            int points;
+            int guessCount = 0;
+            String content;
+            String playerName;
+            GuessState guess = GuessState.NOT_MADE;
+
             setupGame();
 
-            String content = jar.getContent();
-            int amount = jar.getAmount();
-            int maxAmount = jar.getMaxAmount();
-
-            int guessCount = 0;
-            GuessState guess = GuessState.INVALID;
-
-            int points;
-            String playerName;
+            content = jar.getContent();
+            amount = jar.getAmount();
+            maxAmount = jar.getMaxAmount();
 
             printHeader("PLAYER");
-            System.out.printf("GuessState how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
+            System.out.printf("Guess how many %s are in the jar. It holds a maximum amount of %d.%n%n", content, maxAmount);
 
             while (guess != GuessState.CORRECT) {
                 try {
-                    guess = makeGuess(Prompter.promptInt("GuessState: "));
+                    guess = makeGuess(Prompter.promptInt("Guess: "));
                 } catch (EmptyJarException e) {
                     e.printStackTrace();
                 }
