@@ -28,6 +28,8 @@ public abstract class JarGame {
         jar = new Jar(content, amount, maxAmount);
     }
     protected final Guess makeGuess(int guess) {
+        if (jar == null) throw new IllegalStateException("The jar must be filled to make a guess.");
+
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();
 

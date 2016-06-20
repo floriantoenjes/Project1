@@ -48,6 +48,8 @@ public class ConsoleJarGame extends JarGame{
 
     @Override
     protected void startGuessing() {
+        if (jar == null) throw new IllegalStateException("The jar must be filled to make a guess.");
+
         String content = jar.getContent();
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();
