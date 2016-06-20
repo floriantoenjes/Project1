@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Prompter {
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public String prompt(String prompt, Object... args) {
         String str = "";
 
         System.out.printf(prompt, args);
-        try {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             str = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
