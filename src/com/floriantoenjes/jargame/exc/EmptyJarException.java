@@ -1,4 +1,4 @@
-package com.floriantoenjes.jargame;
+package com.floriantoenjes.jargame.exc;
 
 public class EmptyJarException extends Exception {
     public EmptyJarException() {
