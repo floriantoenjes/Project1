@@ -9,14 +9,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public abstract class JarGame {
-    private final Random random;
-    protected final Set<Score> scores;
+    private final Random random = new Random();
+    protected final Set<Score> scores = new TreeSet<>();
     protected Jar jar;
-
-    public JarGame() {
-        random = new Random();
-        scores = new TreeSet<>();
-    }
 
     public abstract void play();
 
