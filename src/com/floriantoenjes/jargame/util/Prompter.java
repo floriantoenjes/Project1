@@ -21,20 +21,17 @@ public class Prompter {
     public static int promptInt(String prompt, Object... args) {
         try {
             return Integer.parseInt(prompt(prompt, args).trim());
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
 
-
     public static boolean promptForYes(String prompt, Object... args) {
-        String input;
-
-        input = prompt(prompt)
+        String input = prompt(prompt)
                 .trim()
                 .toLowerCase();
 
-        if (input.length() > 0) {
+        if (!input.isEmpty()) {
             if (input.charAt(0) == 'y') {
                 return true;
             }
