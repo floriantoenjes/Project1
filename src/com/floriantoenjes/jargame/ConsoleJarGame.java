@@ -8,16 +8,15 @@ public class ConsoleJarGame extends JarGame{
 
     @Override
     public void play() {
-        System.out.println();
         printHeader("ADMINISTRATOR");
         while (true) {
+            int guessCount = 0;
+            GuessState guess = GuessState.NOT_MADE;
             int amount;
             int maxAmount;
             int points;
-            int guessCount = 0;
             String content;
             String playerName;
-            GuessState guess = GuessState.NOT_MADE;
 
             setupGame();
 
@@ -37,24 +36,22 @@ public class ConsoleJarGame extends JarGame{
 
                 switch (guess) {
                     case INVALID:
-                        System.out.printf("You can only guess in a range from 1 to %d.%n", maxAmount);
+                        System.out.printf("It has to be in a range from 1 to %d.%n", maxAmount);
                         continue;
                     case TOO_LOW:
-                        System.out.println("Your guess was too low.");
+                        System.out.println("Too low.");
                         break;
                     case TOO_HIGH:
-                        System.out.println("Your guess was too high.");
+                        System.out.println("Too high.");
                         break;
                 }
                 guessCount++;
             }
+            System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", amount, content, guessCount);
 
             points = maxAmount / guessCount;
-
-            System.out.printf("%nCongratulations - You guessed right. There were %d %s in the jar. This took you %d guess(es).%n", amount, content, guessCount);
             playerName = Prompter.prompt("You have %d points. Please enter your name: ", points);
             scores.add(new Score(playerName, points));
-            System.out.println();
 
             printHeader("ADMINISTRATOR");
             printScores();
@@ -74,15 +71,15 @@ public class ConsoleJarGame extends JarGame{
             maxAmount = Prompter.promptInt("Total amount of %s that fit into the jar: ", content);
             if (maxAmount > 0) {
                 break;
+            } else {
+                System.out.println("Enter a number greater than 0!");
             }
-            System.out.println("Enter a number greater than 0!");
         }
-
         fillJar(content, maxAmount);
     }
 
     private void printHeader(String str) {
-        System.out.println(str);
+        System.out.printf("%n%s%n", str);
         StringBuilder underline = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
             underline.append('-');
@@ -94,11 +91,10 @@ public class ConsoleJarGame extends JarGame{
         int i = 1;
 
         printHeader("SCORES");
-
         for (Score score : scores) {
             System.out.printf("%d. %s%n", i++, score);
         }
-        System.out.printf("%n%n");
+        System.out.println();
     }
 
 }
