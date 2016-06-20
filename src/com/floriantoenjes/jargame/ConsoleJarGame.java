@@ -91,9 +91,9 @@ public class ConsoleJarGame extends JarGame{
 
     private void printHeader(String str) {
         System.out.println(str);
-        String underline = "";
+        StringBuilder underline = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
-            underline += "-";
+            underline.append('-');
         }
         System.out.println(underline);
     }

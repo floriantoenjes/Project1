@@ -47,7 +47,6 @@ public abstract class JarGame {
 
     protected enum Guess {
         INVALID, CORRECT, TOO_LOW, TOO_HIGH
-
     }
 
 }
