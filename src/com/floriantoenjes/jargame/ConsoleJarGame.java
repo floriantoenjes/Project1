@@ -5,11 +5,7 @@ import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.jargame.util.Prompter;
 
 public class ConsoleJarGame extends JarGame{
-    private Prompter prompter;
-
-    public ConsoleJarGame() {
-        prompter = new Prompter();
-    }
+    private Prompter prompter = new Prompter();
 
     @Override
     public void play() {

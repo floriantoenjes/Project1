@@ -5,11 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Prompter {
-    private BufferedReader reader;
-
-    public Prompter() {
-        this.reader = new BufferedReader(new InputStreamReader(System.in));
-    }
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public String prompt(String prompt, Object... args) {
         String str = "";
