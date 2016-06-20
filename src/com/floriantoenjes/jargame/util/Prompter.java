@@ -10,7 +10,8 @@ public class Prompter {
         String str = "";
 
         System.out.printf(prompt, args);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             str = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
