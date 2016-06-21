@@ -16,7 +16,9 @@ public abstract class JarGame {
     public abstract void play();
 
     protected final void fillJar(String content, int maxAmount) {
-        if (maxAmount <= 0) throw new IllegalArgumentException("The maximum amount must be greater than 0!");
+        if (maxAmount < 1) {
+            throw new IllegalArgumentException("The maximum amount must be greater than 0!");
+        }
         int amount = random.nextInt(maxAmount) + 1;
         jar = new Jar(content, amount, maxAmount);
     }
@@ -40,7 +42,7 @@ public abstract class JarGame {
     }
 
     protected enum GuessState {
-        INVALID, NOT_MADE, CORRECT, TOO_LOW, TOO_HIGH
+        NOT_MADE, CORRECT, TOO_LOW, TOO_HIGH, INVALID
     }
 
 }
