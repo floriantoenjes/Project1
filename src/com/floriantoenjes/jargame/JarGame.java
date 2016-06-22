@@ -24,7 +24,7 @@ public abstract class JarGame {
     }
 
     protected final GuessState makeGuess(int guess) throws EmptyJarException {
-        if (jar == null) throw new EmptyJarException();
+        if (jar == null) throw new EmptyJarException("The jar has to be filled to make a guess");
 
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();

@@ -11,12 +11,12 @@ public class ConsoleJarGame extends JarGame{
         printHeader("ADMINISTRATOR");
         while (true) {
             int guessCount = 0;
-            GuessState guess = GuessState.NOT_MADE;
             int amount;
             int maxAmount;
             int points;
             String content;
             String playerName;
+            GuessState guess = GuessState.NOT_MADE;
 
             setupGame();
 
