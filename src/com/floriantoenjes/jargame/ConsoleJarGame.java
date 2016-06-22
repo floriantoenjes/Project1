@@ -10,8 +10,6 @@ public class ConsoleJarGame extends JarGame{
     @Override
     public void play() {
 
-        printHeader("ADMINISTRATOR");
-
         while (true) {
             int guessCount = 0;
             int amount;
@@ -21,6 +19,12 @@ public class ConsoleJarGame extends JarGame{
             String playerName;
             GuessState guess = GuessState.NOT_MADE;
 
+            printHeader("ADMINISTRATOR");
+            if (!scores.isEmpty()) {
+                printHeader("Scores");
+                printScores();
+            }
+            printHeader("Setup");
             setupGame();
 
             content = jar.getContent();
@@ -56,12 +60,11 @@ public class ConsoleJarGame extends JarGame{
             playerName = prompt("You have %d points. Please enter your name: ", points);
             scores.add(new Score(playerName, points));
 
-            printHeader("ADMINISTRATOR");
-            printScores();
             if (!promptForYes("Do you want to setup a new game? Y(es) to continue: ")) {
                 break;
             }
         }
+
         System.out.println("Goodbye!");
     }
 
@@ -92,8 +95,6 @@ public class ConsoleJarGame extends JarGame{
 
     private void printScores() {
         int i = 1;
-
-        printHeader("SCORES");
         for (Score score : scores) {
             System.out.printf("%d. %s%n", i++, score);
         }
