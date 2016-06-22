@@ -2,6 +2,7 @@ package com.floriantoenjes.jargame;
 
 import com.floriantoenjes.jargame.exc.EmptyJarException;
 import com.floriantoenjes.jargame.model.Score;
+
 import static com.floriantoenjes.jargame.util.Prompter.*;
 
 public class ConsoleJarGame extends JarGame{
