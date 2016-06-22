@@ -9,7 +9,9 @@ public class ConsoleJarGame extends JarGame{
 
     @Override
     public void play() {
+
         printHeader("ADMINISTRATOR");
+
         while (true) {
             int guessCount = 0;
             int amount;
