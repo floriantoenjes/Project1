@@ -29,7 +29,7 @@ public abstract class JarGame {
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();
 
-        if (guess <= 0 || guess > maxAmount) {
+        if (guess < 1 || guess > maxAmount) {
             return GuessState.INVALID;
         } else if (guess < amount) {
             return GuessState.TOO_LOW;
