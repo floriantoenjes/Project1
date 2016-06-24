@@ -1,4 +1,4 @@
-# Guess How Many Are In The Jar Game
+## Guess How Many Are In The Jar Game
 
 ### Treehouse Java Web Development Techdegree Project 1
 
