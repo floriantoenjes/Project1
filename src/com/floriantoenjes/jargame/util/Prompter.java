@@ -28,13 +28,12 @@ public class Prompter {
     }
 
     public static boolean promptForYes(String prompt, Object... args) {
-        String input = prompt(prompt);
+        String input = prompt(prompt, args);
 
-        if (!input.isEmpty()) {
-            if (Character.toLowerCase(input.charAt(0)) == 'y') {
-                return true;
-            }
+        if (!input.isEmpty() && Character.toLowerCase(input.charAt(0)) == 'y') {
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }

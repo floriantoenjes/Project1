@@ -20,6 +20,7 @@ public class Jar {
         } else if (amount > maxAmount) {
             throw new IllegalArgumentException("The amount cannot be greater than the maximum amount!");
         }
+
         this.content = content;
         this.amount = amount;
         this.maxAmount = maxAmount;
