@@ -7,9 +7,6 @@ public class Jar {
     private int amount;
     private int maxAmount;
 
-    public Jar() {
-    }
-
     public Jar(String content, int amount, int maxAmount) {
         fill(content, amount, maxAmount);
     }
@@ -26,8 +23,8 @@ public class Jar {
         this.maxAmount = maxAmount;
     }
 
-    public Optional<String> getContent() {
-        return Optional.ofNullable(content);
+    public String getContent() {
+        return content;
     }
 
     public int getAmount() {

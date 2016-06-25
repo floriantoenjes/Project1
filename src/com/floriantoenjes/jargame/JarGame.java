@@ -11,17 +11,21 @@ import java.util.TreeSet;
 public abstract class JarGame {
     private final Random random = new Random();
     protected final Set<Score> scores = new TreeSet<>();
-    protected final Jar jar = new Jar();
+    protected Jar jar;
 
     public abstract void play();
 
     protected final void fillJar(String content, int maxAmount) {
         int amount = random.nextInt(maxAmount) + 1;
-        jar.fill(content, amount, maxAmount);
+        if (jar == null) {
+            jar = new Jar(content, amount, maxAmount);
+        } else {
+            jar.fill(content, amount, maxAmount);
+        }
     }
 
     protected final GuessState makeGuess(int guess) throws EmptyJarException {
-        jar.getContent().orElseThrow(() -> new EmptyJarException("The jar has to be filled to make a guess"));
+        if (jar == null) throw new EmptyJarException("The jar has to be filled to make a guess");
 
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();

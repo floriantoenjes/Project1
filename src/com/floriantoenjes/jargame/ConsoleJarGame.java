@@ -27,7 +27,7 @@ public class ConsoleJarGame extends JarGame{
             printHeader("Setup");
             setupGame();
 
-            content = jar.getContent().get();
+            content = jar.getContent();
             amount = jar.getAmount();
             maxAmount = jar.getMaxAmount();
 
