@@ -1,7 +1,5 @@
 package com.floriantoenjes.jargame.model;
 
-import java.util.Optional;
-
 public class Jar {
     private String content;
     private int amount;
