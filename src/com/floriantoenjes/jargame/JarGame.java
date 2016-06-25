@@ -11,7 +11,7 @@ import java.util.TreeSet;
 public abstract class JarGame {
     private final Random random = new Random();
     protected final Set<Score> scores = new TreeSet<>();
-    protected Jar jar;
+    protected final Jar jar = new Jar();
 
     public abstract void play();
 
@@ -20,11 +20,11 @@ public abstract class JarGame {
             throw new IllegalArgumentException("The maximum amount must be greater than 0!");
         }
         int amount = random.nextInt(maxAmount) + 1;
-        jar = new Jar(content, amount, maxAmount);
+            jar.fill(content, amount, maxAmount);
     }
 
     protected final GuessState makeGuess(int guess) throws EmptyJarException {
-        if (jar == null) throw new EmptyJarException("The jar has to be filled to make a guess");
+        jar.getContent().orElseThrow(() -> new EmptyJarException("The jar has to be filled to make a guess"));
 
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();

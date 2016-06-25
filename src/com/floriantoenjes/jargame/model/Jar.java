@@ -1,9 +1,14 @@
 package com.floriantoenjes.jargame.model;
 
+import java.util.Optional;
+
 public class Jar {
     private String content;
     private int amount;
     private int maxAmount;
+
+    public Jar() {
+    }
 
     public Jar(String content, int amount, int maxAmount) {
         fill(content, amount, maxAmount);
@@ -15,8 +20,8 @@ public class Jar {
         this.maxAmount = maxAmount;
     }
 
-    public String getContent() {
-        return content;
+    public Optional<String> getContent() {
+        return Optional.ofNullable(content);
     }
 
     public int getAmount() {
