@@ -12,7 +12,7 @@ public class Prompter {
         System.out.printf(prompt, args);
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            str = reader.readLine();
+            str = reader.readLine().trim();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -21,19 +21,17 @@ public class Prompter {
 
     public static int promptInt(String prompt, Object... args) {
         try {
-            return Integer.parseInt(prompt(prompt, args).trim());
+            return Integer.parseInt(prompt(prompt, args));
         } catch (NumberFormatException e) {
             return 0;
         }
     }
 
     public static boolean promptForYes(String prompt, Object... args) {
-        String input = prompt(prompt)
-                .trim()
-                .toLowerCase();
+        String input = prompt(prompt);
 
         if (!input.isEmpty()) {
-            if (input.charAt(0) == 'y') {
+            if (Character.toLowerCase(input.charAt(0)) == 'y') {
                 return true;
             }
         }
