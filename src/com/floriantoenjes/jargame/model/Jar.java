@@ -15,6 +15,11 @@ public class Jar {
     }
 
     public void fill(String content, int amount, int maxAmount) {
+        if (amount < 1) {
+            throw new IllegalArgumentException("The amount must be greater than 0!");
+        } else if (amount > maxAmount) {
+            throw new IllegalArgumentException("The amount cannot be greater than the maximum amount!");
+        }
         this.content = content;
         this.amount = amount;
         this.maxAmount = maxAmount;

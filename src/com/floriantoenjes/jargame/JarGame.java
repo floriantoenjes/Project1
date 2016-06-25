@@ -16,11 +16,8 @@ public abstract class JarGame {
     public abstract void play();
 
     protected final void fillJar(String content, int maxAmount) {
-        if (maxAmount < 1) {
-            throw new IllegalArgumentException("The maximum amount must be greater than 0!");
-        }
         int amount = random.nextInt(maxAmount) + 1;
-            jar.fill(content, amount, maxAmount);
+        jar.fill(content, amount, maxAmount);
     }
 
     protected final GuessState makeGuess(int guess) throws EmptyJarException {
