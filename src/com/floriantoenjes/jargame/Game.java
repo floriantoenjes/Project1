@@ -4,19 +4,25 @@ import com.floriantoenjes.jargame.model.Jar;
 import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.jargame.view.GameView;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
-public class Game {
+public class Game implements Serializable{
+    public static final long serialVersionUID = 1L;
     private Jar jar;
     private GameView view = new GameView();
     private Random random = new Random();
-    List<Score> scoreList = new ArrayList<>();
+    private List<Score> scoreList = new ArrayList<>();
 
     public static void main(String[] args) {
-        new Game().start();
+        Game game = loadGame();
+        if (game == null) {
+            game = new Game();
+        }
+        game.start();
     }
 
     public void start() {
@@ -24,8 +30,10 @@ public class Game {
             setup();
             play();
             view.showScores(scoreList);
-        } while (view.playAgain());
+        } while (view.isPlayAgain());
+        saveGame();
         view.exitGame();
+        System.exit(0);
     }
 
     public void setup() {
@@ -58,8 +66,25 @@ public class Game {
             guessCount++;
         }
 
-        Score score = new Score(view.setPlayerName(), maxAmount, guessCount);
+        view.showSucceeded(guessCount, maxAmount);
+        Score score = new Score(view.getPlayerName(), maxAmount, guessCount);
         scoreList.add(score);
-        view.showSucceeded(score);
+    }
+
+    public void saveGame() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("JarGame.ser"))) {
+            oos.writeObject(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Game loadGame() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("JarGame.ser"))) {
+            return (Game) ois.readObject();
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }

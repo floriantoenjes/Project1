@@ -1,6 +1,9 @@
 package com.floriantoenjes.jargame.model;
 
-public class Jar {
+import java.io.Serializable;
+
+public class Jar implements Serializable{
+    static final long serialVersionUID = 1L;
     private String content;
     private int amount;
     private int maxAmount;

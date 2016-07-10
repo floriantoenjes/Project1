@@ -3,11 +3,12 @@ package com.floriantoenjes.jargame.view;
 import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.util.Prompter;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public class GameView {
-    String playerName;
+public class GameView implements Serializable{
+    static final long serialVersionUID = 1L;
 
     public int getMaxAmount() {
         return Prompter.promptInt("Max Amount> ");
@@ -43,13 +44,12 @@ public class GameView {
         System.out.println("Too high!");
     }
 
-    public String setPlayerName() {
-        playerName = Prompter.prompt("Your name> ");
-        return playerName;
+    public String getPlayerName() {
+        return Prompter.prompt("Your name> ");
     }
 
-    public void showSucceeded(Score score) {
-        System.out.printf("%s won the game! It took him %d attempts with a score of %d%n", playerName, score.getGuesscount(), score.getPoints());
+    public void showSucceeded(int guessCount, int maxAmount) {
+        System.out.printf("You won the game! It took you %d attempts.%n", guessCount);
     }
 
     public void showScores(List<Score> scoreList) {
@@ -58,12 +58,11 @@ public class GameView {
         scoreList.forEach(System.out::println);
     }
 
-    public boolean playAgain() {
+    public boolean isPlayAgain() {
         return Prompter.promptForYes("Do you want to play again? Y(es)> ");
     }
 
     public void exitGame() {
         System.out.println("Exiting...");
-        System.exit(0);
     }
 }
