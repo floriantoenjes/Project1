@@ -1,12 +1,16 @@
 package com.floriantoenjes.jargame.model;
 
 public class Score implements Comparable<Score>{
+    private int maxAmount;
+
+    private int guesscount;
     private String name;
     private int points;
-
-    public Score(String name, int points) {
+    public Score(String name, int maxAmount, int guesscount) {
         this.name = name;
-        this.points = points;
+        this.guesscount = guesscount;
+        this.maxAmount = maxAmount;
+        this.points = maxAmount / guesscount;
     }
 
     public String getName() {
@@ -15,6 +19,14 @@ public class Score implements Comparable<Score>{
 
     public int getPoints() {
         return points;
+    }
+
+    public int getMaxAmount() {
+        return maxAmount;
+    }
+
+    public int getGuesscount() {
+        return guesscount;
     }
 
     @Override
