@@ -3,6 +3,8 @@ package com.floriantoenjes.jargame.view;
 import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.util.Prompter;
 
+import java.util.List;
+
 public class GameView {
     String playerName;
 
@@ -45,5 +47,10 @@ public class GameView {
 
     public void showSucceeded(Score score) {
         System.out.printf("%s won the game! It took him %d attempts with a score of %d%n", playerName, score.getGuesscount(), score.getPoints());
+    }
+
+    public void showScores(List<Score> scoreList) {
+        System.out.println("High Scores");
+        scoreList.forEach(System.out::println);
     }
 }

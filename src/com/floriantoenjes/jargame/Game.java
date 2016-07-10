@@ -22,11 +22,7 @@ public class Game {
     public void start() {
         setup();
         play();
-        showScoreList();
-    }
-
-    private void showScoreList() {
-        scoreList.forEach(System.out::println);
+        view.showScores(scoreList);
     }
 
     public void setup() {
@@ -45,7 +41,7 @@ public class Game {
     public void play() {
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();
-        int guesscount = 1;
+        int guessCount = 1;
 
         view.showPlaying();
         int guess = view.makeGuess();
@@ -56,10 +52,10 @@ public class Game {
                 view.showTooHigh();
             }
             guess = view.makeGuess();
-            guesscount++;
+            guessCount++;
         }
 
-        Score score = new Score(view.setPlayerName(), maxAmount, guesscount);
+        Score score = new Score(view.setPlayerName(), maxAmount, guessCount);
         scoreList.add(score);
         view.showSucceeded(score);
     }

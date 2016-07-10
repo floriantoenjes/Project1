@@ -6,11 +6,11 @@ public class Score implements Comparable<Score>{
     private int guesscount;
     private String name;
     private int points;
-    public Score(String name, int maxAmount, int guesscount) {
+    public Score(String name, int maxAmount, int guessCount) {
         this.name = name;
-        this.guesscount = guesscount;
+        this.guesscount = guessCount;
         this.maxAmount = maxAmount;
-        this.points = maxAmount / guesscount;
+        this.points = maxAmount / guessCount;
     }
 
     public String getName() {
