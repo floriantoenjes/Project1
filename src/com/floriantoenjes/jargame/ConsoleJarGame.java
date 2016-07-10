@@ -3,7 +3,7 @@ package com.floriantoenjes.jargame;
 import com.floriantoenjes.jargame.exc.EmptyJarException;
 import com.floriantoenjes.jargame.model.Score;
 
-import static com.floriantoenjes.jargame.util.Prompter.*;
+import static com.floriantoenjes.util.Prompter.*;
 
 public class ConsoleJarGame extends JarGame{
 
@@ -16,12 +16,16 @@ public class ConsoleJarGame extends JarGame{
 
         while (true) {
             int amount;
-            int guessCount = 0;
             int maxAmount;
+
+            int guessCount = 0;
             int points;
+
             String content;
             String playerName;
+
             GuessState guess = GuessState.NOT_MADE;
+
 
             printHeader("ADMINISTRATOR");
             if (!scores.isEmpty()) {
