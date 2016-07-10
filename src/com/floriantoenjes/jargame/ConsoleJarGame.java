@@ -7,12 +7,16 @@ import static com.floriantoenjes.jargame.util.Prompter.*;
 
 public class ConsoleJarGame extends JarGame{
 
+    public static void main(String[] args) {
+        new ConsoleJarGame().play();
+    }
+
     @Override
     public void play() {
 
         while (true) {
-            int guessCount = 0;
             int amount;
+            int guessCount = 0;
             int maxAmount;
             int points;
             String content;
