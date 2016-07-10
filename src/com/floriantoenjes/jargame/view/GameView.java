@@ -3,6 +3,7 @@ package com.floriantoenjes.jargame.view;
 import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.util.Prompter;
 
+import java.util.Collections;
 import java.util.List;
 
 public class GameView {
@@ -14,6 +15,8 @@ public class GameView {
 
     public void showStartSetup() {
         System.out.println("Setting up game");
+        System.out.println("Enter what type of item the jar should be filled with and the maximum amount that fits " +
+                "into the jar.");
     }
 
     public String getItemType() {
@@ -51,6 +54,16 @@ public class GameView {
 
     public void showScores(List<Score> scoreList) {
         System.out.println("High Scores");
+        Collections.sort(scoreList);
         scoreList.forEach(System.out::println);
+    }
+
+    public boolean playAgain() {
+        return Prompter.promptForYes("Do you want to play again? Y(es)> ");
+    }
+
+    public void exitGame() {
+        System.out.println("Exiting...");
+        System.exit(0);
     }
 }

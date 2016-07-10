@@ -20,9 +20,12 @@ public class Game {
     }
 
     public void start() {
-        setup();
-        play();
-        view.showScores(scoreList);
+        do {
+            setup();
+            play();
+            view.showScores(scoreList);
+        } while (view.playAgain());
+        view.exitGame();
     }
 
     public void setup() {
