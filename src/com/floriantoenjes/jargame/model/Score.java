@@ -3,12 +3,13 @@ package com.floriantoenjes.jargame.model;
 import java.io.Serializable;
 
 public class Score implements Comparable<Score>, Serializable{
-    static final long serialVersionUID = 1L;
-    private int maxAmount;
+    private static final long serialVersionUID = -2420442126913805845L;
 
-    private int guesscount;
-    private String name;
-    private int points;
+    private final int maxAmount;
+    private final int guesscount;
+
+    private final String name;
+    private final int points;
     public Score(String name, int maxAmount, int guessCount) {
         this.name = name;
         this.guesscount = guessCount;

@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameView implements Serializable{
-    static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 6444666024001777071L;
 
     public int getMaxAmount() {
         return Prompter.promptInt("Max Amount> ");
@@ -28,8 +28,10 @@ public class GameView implements Serializable{
         System.out.println("Game has been setup");
     }
 
-    public void showPlaying() {
+    public void showPlaying(String content, int maxAmount) {
         System.out.println("Playing Game");
+        System.out.printf("A jar has been filled with %s. It can hold a maximum of %d. Guess how many are in the jar.%n",
+                content, maxAmount);
     }
 
     public int makeGuess() {

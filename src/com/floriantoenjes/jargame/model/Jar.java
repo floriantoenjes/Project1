@@ -3,7 +3,7 @@ package com.floriantoenjes.jargame.model;
 import java.io.Serializable;
 
 public class Jar implements Serializable{
-    static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 7177903761959384671L;
     private String content;
     private int amount;
     private int maxAmount;

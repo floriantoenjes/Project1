@@ -7,25 +7,23 @@ import com.floriantoenjes.jargame.view.GameView;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 
 public class Game implements Serializable{
-    public static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3278543306890766237L;
     private Jar jar;
-    private GameView view = new GameView();
-    private Random random = new Random();
-    private List<Score> scoreList = new ArrayList<>();
+    private final GameView view = new GameView();
+    private final Random random = new Random();
+    private final List<Score> scoreList = new ArrayList<>();
 
     public static void main(String[] args) {
-        Game game = loadGame();
-        if (game == null) {
-            game = new Game();
-        }
+        Game game = loadGame().orElse(new Game());
         game.start();
     }
 
-    public void start() {
+    private void start() {
         do {
             setup();
             play();
@@ -36,7 +34,7 @@ public class Game implements Serializable{
         System.exit(0);
     }
 
-    public void setup() {
+    private void setup() {
         view.showStartSetup();
         String itemType = view.getItemType();
         int maxAmount = view.getMaxAmount();
@@ -44,17 +42,22 @@ public class Game implements Serializable{
         view.showEndSetup();
     }
 
-    public void fillJar(String itemType, int maxAmount) {
+    private void fillJar(String itemType, int maxAmount) {
         int amount = random.nextInt(maxAmount) + 1;
-        jar = new Jar(itemType, amount,maxAmount);
+        if (jar == null) {
+            jar = new Jar(itemType, amount, maxAmount);
+        } else {
+            jar.fill(itemType, amount, maxAmount);
+        }
     }
 
-    public void play() {
+    private void play() {
+        String content = jar.getContent();
         int amount = jar.getAmount();
         int maxAmount = jar.getMaxAmount();
         int guessCount = 1;
 
-        view.showPlaying();
+        view.showPlaying(content, maxAmount);
         int guess = view.makeGuess();
         while (guess != amount) {
             if (guess < amount) {
@@ -71,7 +74,7 @@ public class Game implements Serializable{
         scoreList.add(score);
     }
 
-    public void saveGame() {
+    private void saveGame() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("JarGame.ser"))) {
             oos.writeObject(this);
         } catch (Exception e) {
@@ -79,11 +82,11 @@ public class Game implements Serializable{
         }
     }
 
-    public static Game loadGame() {
+    private static Optional<Game> loadGame() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("JarGame.ser"))) {
-            return (Game) ois.readObject();
+            return Optional.of((Game) ois.readObject());
         } catch (Exception e) {
-            return null;
+            return Optional.empty();
         }
 
     }
