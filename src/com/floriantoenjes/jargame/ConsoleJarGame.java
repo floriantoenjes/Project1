@@ -38,7 +38,8 @@ public class ConsoleJarGame extends JarGame{
                 try {
                     guess = makeGuess(promptInt("Guess: "));
                 } catch (EmptyJarException e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
+                    setupGame();
                 }
 
                 switch (guess) {
