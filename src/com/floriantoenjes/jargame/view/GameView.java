@@ -10,10 +10,6 @@ import java.util.List;
 public class GameView implements Serializable{
     private static final long serialVersionUID = 6444666024001777071L;
 
-    public int getMaxAmount() {
-        return Prompter.promptInt("Max Amount> ");
-    }
-
     public void showStartSetup() {
         System.out.println("Setting up game");
         System.out.println("Enter what type of item the jar should be filled with and the maximum amount that fits " +
@@ -24,8 +20,12 @@ public class GameView implements Serializable{
         return Prompter.prompt("Item Type> ");
     }
 
+    public int getMaxAmount() {
+        return Prompter.promptInt("Max Amount> ");
+    }
+
     public void showEndSetup() {
-        System.out.println("Game has been setup");
+        System.out.printf("Game has been setup%n%n");
     }
 
     public void showPlaying(String content, int maxAmount) {

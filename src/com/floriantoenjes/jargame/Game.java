@@ -13,14 +13,13 @@ import java.util.Random;
 
 public class Game implements Serializable{
     private static final long serialVersionUID = 3278543306890766237L;
-    private Jar jar;
     private final GameView view = new GameView();
     private final Random random = new Random();
     private final List<Score> scoreList = new ArrayList<>();
+    private Jar jar;
 
     public static void main(String[] args) {
-        Game game = loadGame().orElse(new Game());
-        game.start();
+        loadGame().orElse(new Game()).start();
     }
 
     private void start() {
