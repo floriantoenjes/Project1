@@ -5,10 +5,7 @@ import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.jargame.view.GameView;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 
 public class Game implements Serializable{
@@ -70,6 +67,7 @@ public class Game implements Serializable{
 
         view.showSucceeded(guessCount, maxAmount);
         Score score = new Score(view.getPlayerName(), maxAmount, guessCount);
+        Collections.sort(scoreList);
         scoreList.add(score);
     }
 

@@ -56,7 +56,6 @@ public class GameView implements Serializable{
 
     public void showScores(List<Score> scoreList) {
         System.out.println("High Scores");
-        Collections.sort(scoreList);
         scoreList.forEach(System.out::println);
     }
 
