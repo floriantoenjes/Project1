@@ -6,13 +6,13 @@ public class Score implements Comparable<Score>, Serializable{
     private static final long serialVersionUID = -2420442126913805845L;
 
     private final int maxAmount;
-    private final int guesscount;
+    private final int guessCount;
 
     private final String name;
     private final int points;
     public Score(String name, int maxAmount, int guessCount) {
         this.name = name;
-        this.guesscount = guessCount;
+        this.guessCount = guessCount;
         this.maxAmount = maxAmount;
         this.points = maxAmount / guessCount;
     }
@@ -29,8 +29,8 @@ public class Score implements Comparable<Score>, Serializable{
         return maxAmount;
     }
 
-    public int getGuesscount() {
-        return guesscount;
+    public int getGuessCount() {
+        return guessCount;
     }
 
     @Override
