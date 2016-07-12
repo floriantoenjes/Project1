@@ -4,7 +4,6 @@ import com.floriantoenjes.jargame.model.Score;
 import com.floriantoenjes.util.Prompter;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
 public class GameView implements Serializable{
@@ -63,7 +62,7 @@ public class GameView implements Serializable{
         return Prompter.promptForYes("Do you want to play again? Y(es)> ");
     }
 
-    public void exitGame() {
+    public void showExitGame() {
         System.out.println("Exiting...");
     }
 }

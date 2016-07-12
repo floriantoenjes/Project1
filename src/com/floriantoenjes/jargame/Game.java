@@ -1,6 +1,7 @@
 package com.floriantoenjes.jargame;
 
 import com.floriantoenjes.jargame.model.GameLogic;
+import com.floriantoenjes.jargame.model.GameLogic.GuessState;
 import com.floriantoenjes.jargame.view.GameView;
 
 public class Game {
@@ -18,6 +19,8 @@ public class Game {
             view.showScores(gameLogic.getScoreList());
         } while (view.isPlayAgain());
         gameLogic.saveGame();
+        view.showExitGame();
+        System.exit(0);
     }
 
     private static void setup() {
@@ -29,8 +32,8 @@ public class Game {
     private static void play() {
         view.showPlaying(gameLogic.getJarContent(), gameLogic.getJarMaxAmount());
         int guessCount = 1;
-        GameLogic.GuessState result = gameLogic.makeGuess(view.getGuess());
-        while (result != GameLogic.GuessState.CORRECT) {
+        GuessState result = gameLogic.makeGuess(view.getGuess());
+        while (result != GuessState.CORRECT) {
             switch (result) {
                 case TOO_LOW:
                     view.showTooLow();
