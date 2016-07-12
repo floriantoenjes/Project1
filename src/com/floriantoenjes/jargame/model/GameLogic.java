@@ -43,10 +43,13 @@ public class GameLogic implements Serializable{
         int amount = jar.getAmount();
         if (guess == amount) {
             return GuessState.CORRECT;
-        } else if (guess < amount) {
-            return GuessState.TOO_LOW;
         } else {
-            return GuessState.TOO_HIGH;
+            if (guess < amount) {
+                return GuessState.TOO_LOW;
+            }
+            else {
+                return GuessState.TOO_HIGH;
+            }
         }
     }
 
