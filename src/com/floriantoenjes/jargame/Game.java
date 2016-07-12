@@ -4,11 +4,14 @@ import com.floriantoenjes.jargame.model.GameLogic;
 import com.floriantoenjes.jargame.view.GameView;
 
 public class Game {
-    GameLogic gameLogic = GameLogic.loadGame().orElse(new GameLogic());
-    GameView view = new GameView();
+    private static final GameLogic gameLogic = GameLogic.loadGame().orElse(new GameLogic());
+    private static final GameView view = new GameView();
 
+    public static void main(String[] args) {
+        Game.start();
+    }
 
-    private void start() {
+    private static void start() {
         do {
             setup();
             play();
@@ -17,21 +20,26 @@ public class Game {
         gameLogic.saveGame();
     }
 
-    private void setup() {
+    private static void setup() {
         view.showStartSetup();
         gameLogic.fillJar(view.getItemType(), view.getMaxAmount());
         view.showEndSetup();
     }
 
-    private void play() {
+    private static void play() {
+        view.showPlaying(gameLogic.getJarContent(), gameLogic.getJarMaxAmount());
         int guessCount = 1;
-        int result = gameLogic.makeGuess(view.getGuess());
-        while (result != 0) {
-            if (result < 0) {
-                view.showTooLow();
-            } else {
-                view.showTooHigh();
+        GameLogic.GuessState result = gameLogic.makeGuess(view.getGuess());
+        while (result != GameLogic.GuessState.CORRECT) {
+            switch (result) {
+                case TOO_LOW:
+                    view.showTooLow();
+                    break;
+                case TOO_HIGH:
+                    view.showTooHigh();
+                    break;
             }
+            result = gameLogic.makeGuess(view.getGuess());
             guessCount++;
         }
         view.showSucceeded(guessCount);

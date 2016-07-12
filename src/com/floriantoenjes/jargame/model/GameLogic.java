@@ -21,6 +21,14 @@ public class GameLogic implements Serializable{
         }
     }
 
+    public String getJarContent() {
+        return jar.getContent();
+    }
+
+    public int getJarMaxAmount() {
+        return jar.getMaxAmount();
+    }
+
     public void addScoreToList(String playerName, int guessCount) {
         Score score = new Score(playerName, jar.getMaxAmount(), guessCount);
         Collections.sort(scoreList);
@@ -31,14 +39,14 @@ public class GameLogic implements Serializable{
         return scoreList;
     }
 
-    public int makeGuess(int guess) {
+    public GuessState makeGuess(int guess) {
         int amount = jar.getAmount();
         if (guess == amount) {
-            return 0;
+            return GuessState.CORRECT;
         } else if (guess < amount) {
-            return -1;
+            return GuessState.TOO_LOW;
         } else {
-            return 1;
+            return GuessState.TOO_HIGH;
         }
     }
 
@@ -57,5 +65,9 @@ public class GameLogic implements Serializable{
             return Optional.empty();
         }
 
+    }
+
+    public enum GuessState{
+        TOO_LOW, TOO_HIGH, CORRECT
     }
 }

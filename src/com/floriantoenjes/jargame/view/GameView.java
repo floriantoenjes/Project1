@@ -29,7 +29,7 @@ public class GameView implements Serializable{
     }
 
     public void showPlaying(String content, int maxAmount) {
-        System.out.println("Playing GameLogic");
+        System.out.println("Playing Game");
         System.out.printf("A jar has been filled with %s. It can hold a maximum of %d. Guess how many are in the jar.%n",
                 content, maxAmount);
     }
