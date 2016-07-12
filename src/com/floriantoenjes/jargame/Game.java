@@ -1,90 +1,40 @@
 package com.floriantoenjes.jargame;
 
-import com.floriantoenjes.jargame.model.Jar;
-import com.floriantoenjes.jargame.model.Score;
+import com.floriantoenjes.jargame.model.GameLogic;
 import com.floriantoenjes.jargame.view.GameView;
 
-import java.io.*;
-import java.util.*;
+public class Game {
+    GameLogic gameLogic = GameLogic.loadGame().orElse(new GameLogic());
+    GameView view = new GameView();
 
-
-public class Game implements Serializable{
-    private static final long serialVersionUID = 3278543306890766237L;
-    private final GameView view = new GameView();
-    private final Random random = new Random();
-    private final List<Score> scoreList = new ArrayList<>();
-    private Jar jar;
-
-    public static void main(String[] args) {
-        loadGame().orElse(new Game()).start();
-    }
 
     private void start() {
         do {
             setup();
             play();
-            view.showScores(scoreList);
+            view.showScores(gameLogic.getScoreList());
         } while (view.isPlayAgain());
-        saveGame();
-        view.exitGame();
-        System.exit(0);
+        gameLogic.saveGame();
     }
 
     private void setup() {
         view.showStartSetup();
-        String itemType = view.getItemType();
-        int maxAmount = view.getMaxAmount();
-        fillJar(itemType, maxAmount);
+        gameLogic.fillJar(view.getItemType(), view.getMaxAmount());
         view.showEndSetup();
     }
 
-    private void fillJar(String itemType, int maxAmount) {
-        int amount = random.nextInt(maxAmount) + 1;
-        if (jar == null) {
-            jar = new Jar(itemType, amount, maxAmount);
-        } else {
-            jar.fill(itemType, amount, maxAmount);
-        }
-    }
-
     private void play() {
-        String content = jar.getContent();
-        int amount = jar.getAmount();
-        int maxAmount = jar.getMaxAmount();
         int guessCount = 1;
-
-        view.showPlaying(content, maxAmount);
-        int guess = view.makeGuess();
-        while (guess != amount) {
-            if (guess < amount) {
+        int result = gameLogic.makeGuess(view.getGuess());
+        while (result != 0) {
+            if (result < 0) {
                 view.showTooLow();
             } else {
                 view.showTooHigh();
             }
-            guess = view.makeGuess();
             guessCount++;
         }
-
-        view.showSucceeded(guessCount, maxAmount);
-        Score score = new Score(view.getPlayerName(), maxAmount, guessCount);
-        Collections.sort(scoreList);
-        scoreList.add(score);
-    }
-
-    private void saveGame() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("JarGame.ser"))) {
-            oos.writeObject(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Optional<Game> loadGame() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("JarGame.ser"))) {
-            return Optional.of((Game) ois.readObject());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-
+        view.showSucceeded(guessCount);
+        gameLogic.addScoreToList(view.getPlayerName(), guessCount);
     }
 }

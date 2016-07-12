@@ -25,16 +25,16 @@ public class GameView implements Serializable{
     }
 
     public void showEndSetup() {
-        System.out.printf("Game has been setup%n%n");
+        System.out.printf("GameLogic has been setup%n%n");
     }
 
     public void showPlaying(String content, int maxAmount) {
-        System.out.println("Playing Game");
+        System.out.println("Playing GameLogic");
         System.out.printf("A jar has been filled with %s. It can hold a maximum of %d. Guess how many are in the jar.%n",
                 content, maxAmount);
     }
 
-    public int makeGuess() {
+    public int getGuess() {
         return Prompter.promptInt("Guess> ");
     }
 
@@ -50,7 +50,7 @@ public class GameView implements Serializable{
         return Prompter.prompt("Your name> ");
     }
 
-    public void showSucceeded(int guessCount, int maxAmount) {
+    public void showSucceeded(int guessCount) {
         System.out.printf("You won the game! It took you %d attempts.%n", guessCount);
     }
 
