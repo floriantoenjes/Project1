@@ -24,7 +24,7 @@ public class GameView implements Serializable{
     }
 
     public void showEndSetup() {
-        System.out.printf("GameLogic has been setup%n%n");
+        System.out.printf("Game has been setup%n%n");
     }
 
     public void showPlaying(String content, int maxAmount) {

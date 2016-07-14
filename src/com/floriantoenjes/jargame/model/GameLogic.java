@@ -68,6 +68,6 @@ public class GameLogic implements Serializable{
     }
 
     public enum GuessState{
-        TOO_LOW, TOO_HIGH, CORRECT
+        NOT_MADE, TOO_LOW, TOO_HIGH, CORRECT
     }
 }

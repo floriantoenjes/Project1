@@ -31,9 +31,9 @@ public class Game {
 
     private static void play() {
         view.showPlaying(gameLogic.getJarContent(), gameLogic.getJarMaxAmount());
-        int guessCount = 1;
-        GuessState result = gameLogic.makeGuess(view.getGuess());
-        while (result != GuessState.CORRECT) {
+        int guessCount = 0;
+        GuessState result = GuessState.NOT_MADE;
+        do {
             switch (result) {
                 case TOO_LOW:
                     view.showTooLow();
@@ -44,7 +44,7 @@ public class Game {
             }
             result = gameLogic.makeGuess(view.getGuess());
             guessCount++;
-        }
+        } while (result != GuessState.CORRECT);
         view.showSucceeded(guessCount);
         gameLogic.addScoreToList(view.getPlayerName(), guessCount);
     }
